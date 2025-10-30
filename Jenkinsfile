@@ -3,20 +3,35 @@ pipeline {
 	environment{
 		dockerHome  = tool 'myDocker'
 		mavenHome  = tool 'myMaven'
-		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+		// Keep tool paths available; don't force a PATH separator here so the pipeline works on both Windows and Unix agents.
+		// Use `dockerHome` and `mavenHome` in steps instead of modifying PATH here.
 	}
 	stages {
 		stage ('Checkout'){
 			steps {
-				sh 'mvn --version'
-				sh 'docker version'
-				echo "Build"
-				echo "PATH - $PATH"
-				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
-				echo "BUILD_ID - $env.BUILD_ID"
-				echo "JOB_NAME - $env.JOB_NAME"
-				echo "BUILD_TAG - $env.BUILD_TAG"
-				echo "BUILD_URL - $env.BUILD_URL"
+				script {
+					if (isUnix()) {
+						sh 'mvn --version'
+						sh 'docker version'
+						sh 'echo "Build"'
+						sh 'echo "PATH - $PATH"'
+						sh 'echo "BUILD_NUMBER - $BUILD_NUMBER"'
+						sh 'echo "BUILD_ID - $BUILD_ID"'
+						sh 'echo "JOB_NAME - $JOB_NAME"'
+						sh 'echo "BUILD_TAG - $BUILD_TAG"'
+						sh 'echo "BUILD_URL - $BUILD_URL"'
+					} else {
+						bat 'mvn --version'
+						bat 'docker version'
+						bat 'echo Build'
+						bat 'echo PATH - %PATH%'
+						bat 'echo BUILD_NUMBER - %BUILD_NUMBER%'
+						bat 'echo BUILD_ID - %BUILD_ID%'
+						bat 'echo JOB_NAME - %JOB_NAME%'
+						bat 'echo BUILD_TAG - %BUILD_TAG%'
+						bat 'echo BUILD_URL - %BUILD_URL%'
+					}
+				}
 			}
 		}
 //		stage('Compile'){
@@ -36,14 +51,20 @@ pipeline {
 //		}
 		stage ('package'){
 			steps {
-				sh "mvn package -DskipTests"
+				script {
+					if (isUnix()) {
+						sh 'mvn package -DskipTests'
+					} else {
+						bat 'mvn package -DskipTests'
+					}
+				}
 			}
 		}
 		stage ('Build Docker Image'){
 			steps{
 				//"docker biild -t rajshekharkg/docker_connection:$env.BUILD_TAG"
 				script {
-					dockerImage = docker.Build("rajshekharkg/docker_connection:${env.BUILD_TAG}")
+					dockerImage = docker.build("rajshekharkg/docker_connection:${env.BUILD_TAG}")
 				}
 			}
 
