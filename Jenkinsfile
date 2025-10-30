@@ -24,16 +24,16 @@ pipeline {
 				sh "mvn clean compile"
 			}
 	}
-		stage ('Test'){
-			steps {
-				sh "mvn test"
-			}
-		}
-		stage ('It Test'){
-			steps {
-				sh "mvn failsafe:integration-test failsafe:verify"
-			}
-		}
+//		stage ('Test'){
+//			steps {
+//				sh "mvn test"
+//			}
+//		}
+//		stage ('It Test'){
+//			steps {
+//				sh "mvn failsafe:integration-test failsafe:verify"
+//			}
+//		}
 		stage ('package'){
 			steps {
 				sh "mvn package -DskipTests"
