@@ -18,8 +18,8 @@ pipeline{
 				echo "JOB_NAME - $env.JOB_NAME"
 				echo "BULID_TAG - $env.BULID_TAG"
 				echo "BUILD_URL - $env.BULID_URL"
-				}
 			}
+		}
 		
 	}
 
