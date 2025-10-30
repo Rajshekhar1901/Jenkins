@@ -8,7 +8,7 @@ node {
 	stage('Testing satge') {
 		echo "Test"
 	}
-	stage('Testing now') {
+	stage('Raju') {
 		echo "Test"
 	}
 }
