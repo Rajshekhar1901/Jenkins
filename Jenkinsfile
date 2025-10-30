@@ -4,8 +4,6 @@ pipeline {
 		stage ('Build'){
 			steps {
 				echo "Build"
-				echo "Test"
-				echo "It test"
 			}
 		}
 				stage ('Test'){
