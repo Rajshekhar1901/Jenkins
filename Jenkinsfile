@@ -34,21 +34,21 @@ pipeline {
 				}
 			}
 		}
-//		stage('Compile'){
-//			steps {
-//				sh "mvn clean compile"
-//			}
-//		}
-//		stage ('Test'){
-//			steps {
-//				sh "mvn test"
-//			}
-//		}
-//		stage ('It Test'){
-//			steps {
-//				sh "mvn failsafe:integration-test failsafe:verify"
-//			}
-//		}
+		stage('Compile'){
+			steps {
+				sh "mvn clean compile"
+			}
+		}
+		stage ('Test'){
+			steps {
+				sh "mvn test"
+			}
+		}
+		stage ('It Test'){
+			steps {
+				sh "mvn failsafe:integration-test failsafe:verify"
+			}
+		}
 		stage ('package'){
 			steps {
 				script {
