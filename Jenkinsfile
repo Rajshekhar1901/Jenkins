@@ -1,9 +1,6 @@
 pipeline {
 	//agent any
 	agent { docker { image 'node:13.1'} }
-	dns:
-      - 8.8.8.8
-      - 1.1.1.1
 	stages {
 		stage ('Build'){
 			steps {
