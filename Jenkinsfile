@@ -19,15 +19,17 @@ pipeline {
 				sh "mvn clean compile"
 			}
 		}
-				stage ('Test'){
+		
+		stage ('Test'){
 			steps {
 				sh "mvn test"
 			}
 		}
-				stage ('IT test'){
+
+		stage ('IT test'){
 			steps {
 				echo "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
-	}
+	} 
 }
