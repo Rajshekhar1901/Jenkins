@@ -11,4 +11,7 @@ node {
 	stage('Raju') {
 		echo "Test"
 	}
+	stage('chandru') {
+		echo "Testing"
+	}
 }
