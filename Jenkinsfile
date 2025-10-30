@@ -19,7 +19,6 @@ pipeline {
 				echo "BUILD_URL - $env.BUILD_URL"
 			}
 		}
-	}
 		stage('Compile'){
 			steps {
 				sh "mvn clean compile"
@@ -38,11 +37,7 @@ pipeline {
 		stage ('package'){
 			steps {
 				script {
-					if (isUnix()) {
-						sh 'mvn package -DskipTests'
-					} else {
-						bat 'mvn package -DskipTests'
-					}
+					sh "mvn package -DskipTests"
 				}
 			}
 		}
@@ -66,3 +61,4 @@ pipeline {
 			}
 		}
 	} 
+}
