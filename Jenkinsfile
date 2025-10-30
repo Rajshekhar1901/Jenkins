@@ -13,23 +13,16 @@ pipeline {
 				echo "Build"
 			}
 		}
-
 		stage('Compile'){
 			steps {
 				sh "mvn clean compile"
 			}
 		}
-		
 		stage ('Test'){
 			steps {
 				sh "mvn test"
 			}
 		}
 
-		stage ('IT test'){
-			steps {
-				echo "mvn failsafe:integration-test failsafe:verify"
-			}
-		}
 	} 
 }
