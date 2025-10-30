@@ -9,28 +9,16 @@ pipeline {
 	stages {
 		stage ('Checkout'){
 			steps {
-				script {
-					if (isUnix()) {
-						sh 'mvn --version'
-						sh 'docker version'
-						sh 'echo "Build"'
-						sh 'echo "PATH - $PATH"'
-						sh 'echo "BUILD_NUMBER - $BUILD_NUMBER"'
-						sh 'echo "BUILD_ID - $BUILD_ID"'
-						sh 'echo "JOB_NAME - $JOB_NAME"'
-						sh 'echo "BUILD_TAG - $BUILD_TAG"'
-						sh 'echo "BUILD_URL - $BUILD_URL"'
-					} else {
-						bat 'mvn --version'
-						bat 'docker version'
-						bat 'echo Build'
-						bat 'echo PATH - %PATH%'
-						bat 'echo BUILD_NUMBER - %BUILD_NUMBER%'
-						bat 'echo BUILD_ID - %BUILD_ID%'
-						bat 'echo JOB_NAME - %JOB_NAME%'
-						bat 'echo BUILD_TAG - %BUILD_TAG%'
-						bat 'echo BUILD_URL - %BUILD_URL%'
-					}
+				script { 
+					sh 'mvn --version'
+					sh 'docker version'
+					sh 'echo "Build"'
+					sh 'echo "PATH - $PATH"'
+					sh 'echo "BUILD_NUMBER - $BUILD_NUMBER"'
+					sh 'echo "BUILD_ID - $BUILD_ID"'
+					sh 'echo "JOB_NAME - $JOB_NAME"'
+					sh 'echo "BUILD_TAG - $BUILD_TAG"'
+					sh 'echo "BUILD_URL - $BUILD_URL"'
 				}
 			}
 		}
