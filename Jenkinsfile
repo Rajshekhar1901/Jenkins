@@ -3,25 +3,23 @@ pipeline {
 	environment{
 		dockerHome  = tool 'myDocker'
 		mavenHome  = tool 'myMaven'
-		// Keep tool paths available; don't force a PATH separator here so the pipeline works on both Windows and Unix agents.
-		// Use `dockerHome` and `mavenHome` in steps instead of modifying PATH here.
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
 	stages {
 		stage ('Checkout'){
 			steps {
-				script { 
-					sh 'mvn --version'
-					sh 'docker version'
-					sh 'echo "Build"'
-					sh 'echo "PATH - $PATH"'
-					sh 'echo "BUILD_NUMBER - $BUILD_NUMBER"'
-					sh 'echo "BUILD_ID - $BUILD_ID"'
-					sh 'echo "JOB_NAME - $JOB_NAME"'
-					sh 'echo "BUILD_TAG - $BUILD_TAG"'
-					sh 'echo "BUILD_URL - $BUILD_URL"'
-				}
+				sh 'mvn --version'
+				sh 'docker version'
+				echo "Build"
+				echo "PATH - $PATH"
+				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
+				echo "BUILD_ID - $env.BUILD_ID"
+				echo "JOB_NAME - $env.JOB_NAME"
+				echo "BUILD_TAG - $env.BUILD_TAG"
+				echo "BUILD_URL - $env.BUILD_URL"
 			}
 		}
+	}
 		stage('Compile'){
 			steps {
 				sh "mvn clean compile"
@@ -68,4 +66,3 @@ pipeline {
 			}
 		}
 	} 
-}
